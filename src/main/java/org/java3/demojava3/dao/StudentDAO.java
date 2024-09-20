@@ -6,30 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentDAO {
-    private static final String INSERT_STUDENTS_SQL = "INSERT INTO students" + "  (name, phone, address, major) VALUES "
-            + " (?, ?, ?, ?);";
-    private static final String SELECT_STUDENT_BY_ID = "select id,name,phone,address,major from students where id =?";
-    private static final String SELECT_ALL_STUDENTS = "select * from students";
-    private static final String DELETE_STUDENTS_SQL = "delete from students where id = ?;";
-    private static final String UPDATE_STUDENTS_SQL = "update students set name = ?,phone= ?, address =?, major = ? where id = ?;";
-
-    DataDAO dataDAO = new DataDAO();
-
-    protected Connection getConnection() {
-        Connection connection = null;
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(dataDAO.jdbcURL, dataDAO.jdbcUsername,
-                    dataDAO.jdbcPassword);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return connection;
-    }
-
+public class StudentDAO extends DataDAO {
     public void insertStudent(Student student) throws SQLException {
         System.out.println(INSERT_STUDENTS_SQL);
         try (Connection connection = getConnection();
@@ -101,7 +78,7 @@ public class StudentDAO {
         return students;
     }
 
-public boolean deleteStudent(int id) throws SQLException {
+    public boolean deleteStudent(int id) throws SQLException {
         boolean rowDeleted;
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_STUDENTS_SQL);) {

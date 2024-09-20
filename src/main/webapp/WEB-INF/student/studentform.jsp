@@ -14,7 +14,7 @@
 <body>
 <header>
     <nav class="navbar"
-    style="background-color: orange">
+         style="background-color: orange">
         <div>
             <a href="/students">Student List</a>
         </div>
@@ -43,32 +43,36 @@
                     </caption>
 
                     <c:if test="${student != null}">
-                        <input type="hidden" name="id" value="<c:out value='${student.id}' />" />
+                        <input type="hidden" name="id" value="<c:out value='${student.id}' />"/>
                     </c:if>
 
                     <fieldset class="form-group">
                         <label>Student Name</label> <input type="text"
-                                                        value="<c:out value='${student.name}' />" class="form-control"
-                                                        name="name" required="required">
+                                                           value="<c:out value='${student.name}' />"
+                                                           class="form-control"
+                                                           name="name" required="required">
                     </fieldset>
 
                     <fieldset class="form-group">
                         <label>Student Phone</label> <input type="text"
-                                                         value="<c:out value='${student.phone}' />" class="form-control"
-                                                         name="phone">
+                                                            value="<c:out value='${student.phone}' />"
+                                                            class="form-control"
+                                                            name="phone">
                     </fieldset>
 
                     <fieldset class="form-group">
                         <label>Student Address</label> <input type="text"
-                                                           value="<c:out value='${student.address}' />" class="form-control"
-                                                           name="address">
+                                                              value="<c:out value='${student.address}' />"
+                                                              class="form-control"
+                                                              name="address">
                     </fieldset>
 
-                        <fieldset class="form-group">
-                            <label>Student Major</label> <input type="text"
-                                                                  value="<c:out value='${student.major}' />" class="form-control"
-                                                                  name="major">
-                        </fieldset>
+                    <fieldset class="form-group">
+                        <label>Student Major</label> <input type="text"
+                                                            value="<c:out value='${student.major}' />"
+                                                            class="form-control"
+                                                            name="major">
+                    </fieldset>
 
                     <button type="submit" class="btn btn-success">Save</button>
                 </form>
