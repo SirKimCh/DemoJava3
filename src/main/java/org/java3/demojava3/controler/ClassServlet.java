@@ -5,31 +5,32 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.java3.demojava3.service.StudentService;
+import org.java3.demojava3.service.ClassService;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet({"/students", "/students/new", "/students/insert", "/students/delete",
-        "/students/edit", "/students/update"})
-public class StudentServlet extends HttpServlet {
+@WebServlet({"/classes", "/classes/new", "/classes/insert",
+        "/classes/delete", "/classes/edit", "/classes/update",
+        "/classes/getClassName"})
+public class ClassServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private StudentService studentService = new StudentService();
+    private ClassService classService = new ClassService();
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getServletPath();
         try {
             switch (action) {
-                case "/students/insert":
-                    studentService.insertStudent(request, response);
+                case "/classes/insert":
+                    classService.insertClass(request, response);
                     break;
-                case "/students/update":
-                    studentService.updateStudent(request, response);
+                case "/classes/update":
+                    classService.updateClass(request, response);
                     break;
                 default:
-                    studentService.listStudent(request, response);
+                    classService.listClass(request, response);
                     break;
             }
         } catch (Exception e) {
@@ -43,17 +44,20 @@ public class StudentServlet extends HttpServlet {
         String action = request.getServletPath();
         try {
             switch (action) {
-                case "/students/new":
-                    studentService.showNewForm(request, response);
+                case "/classes/new":
+                    classService.showNewForm(request, response);
                     break;
-                case "/students/delete":
-                    studentService.deleteStudent(request, response);
+                case "/classes/delete":
+                    classService.deleteClass(request, response);
                     break;
-                case "/students/edit":
-                    studentService.showEditForm(request, response);
+                case "/classes/edit":
+                    classService.showEditForm(request, response);
+                    break;
+                case "/classes/getClassName":
+                    classService.getClassName(request, response);
                     break;
                 default:
-                    studentService.listStudent(request, response);
+                    classService.listClass(request, response);
                     break;
             }
         } catch (SQLException e) {

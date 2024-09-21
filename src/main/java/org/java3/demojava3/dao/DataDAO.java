@@ -24,10 +24,17 @@ public class DataDAO {
         return connection;
     }
 
-    public static final String INSERT_STUDENTS_SQL = "INSERT INTO students" + "  (name, phone, address, major) VALUES "
-            + " (?, ?, ?, ?);";
-    public static final String SELECT_STUDENT_BY_ID = "select id,name,phone,address,major from students where id =?";
-    public static final String SELECT_ALL_STUDENTS = "select * from students";
-    public static final String DELETE_STUDENTS_SQL = "delete from students where id = ?;";
-    public static final String UPDATE_STUDENTS_SQL = "update students set name = ?,phone= ?, address =?, major = ? where id = ?;";
+    // SQL queries for CRUD operations of students
+    public static final String INSERT_STUDENTS_SQL = "INSERT INTO students (name, phone, address, major, status, class_id) VALUES (?, ?, ?, ?, ?, ?);";
+    public static final String SELECT_STUDENT_BY_ID = "SELECT id, name, phone, address, major, status, class_id FROM students WHERE id = ?;";
+    public static final String SELECT_ALL_STUDENTS = "SELECT * FROM students;";
+    public static final String DELETE_STUDENTS_SQL = "DELETE FROM students WHERE id = ?;";
+    public static final String UPDATE_STUDENTS_SQL = "UPDATE students SET name = ?, phone = ?, address = ?, major = ?, status = ?, class_id = ? WHERE id = ?;";
+
+    // SQL queries for CRUD operations of classes
+    public static final String INSERT_CLASSES_SQL = "INSERT INTO classes (name, status) VALUES (?, ?);";
+    public static final String SELECT_CLASS_BY_ID = "SELECT id, name, status FROM classes WHERE id = ?;";
+    public static final String SELECT_ALL_CLASSES = "SELECT * FROM classes;";
+    public static final String DELETE_CLASSES_SQL = "DELETE FROM classes WHERE id = ?;";
+    public static final String UPDATE_CLASSES_SQL = "UPDATE classes SET name = ?, status = ? WHERE id = ?;";
 }

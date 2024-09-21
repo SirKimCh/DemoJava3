@@ -6,22 +6,26 @@ public class Student {
     private String phone;
     private String address;
     private String major;
+    private boolean status;
+    private int classId;
 
-    public Student(int id, String name, String phone, String address, String major) {
-        super();
+    public Student(int id, String name, String phone, String address, String major, boolean status, int classId) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.major = major;
+        this.status = status;
+        this.classId = classId;
     }
 
-    public Student(String name, String phone, String address, String major) {
-        super();
+    public Student(String name, String phone, String address, String major, boolean status, int classId) {
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.major = major;
+        this.status = status;
+        this.classId = classId;
     }
 
     public int getId() {
@@ -62,5 +66,21 @@ public class Student {
 
     public void setMajor(String major) {
         this.major = major;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public int getClassId() {
+        return classId;
+    }
+
+    public void setClassId(int classId) {
+        this.classId = classId;
     }
 }
