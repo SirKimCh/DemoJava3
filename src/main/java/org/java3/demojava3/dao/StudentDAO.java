@@ -85,4 +85,12 @@ public class StudentDAO extends DataDAO {
         }
         return rowDeleted;
     }
+
+    public void deleteStudentsByClassId(int classId) throws SQLException {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_STUDENTS_BY_CLASS_ID)) {
+            preparedStatement.setInt(1, classId);
+            preparedStatement.executeUpdate();
+        }
+    }
 }

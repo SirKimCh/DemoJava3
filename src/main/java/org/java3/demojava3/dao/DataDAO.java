@@ -30,7 +30,7 @@ public class DataDAO {
     public static final String SELECT_ALL_STUDENTS = "SELECT * FROM students;";
     public static final String DELETE_STUDENTS_SQL = "DELETE FROM students WHERE id = ?;";
     public static final String UPDATE_STUDENTS_SQL = "UPDATE students SET name = ?, phone = ?, address = ?, major = ?, status = ?, class_id = ? WHERE id = ?;";
-
+    public static final String DELETE_STUDENTS_BY_CLASS_ID = "DELETE FROM students WHERE class_id = ?;";
     // SQL queries for CRUD operations of classes
     public static final String INSERT_CLASSES_SQL = "INSERT INTO classes (name, status) VALUES (?, ?);";
     public static final String SELECT_CLASS_BY_ID = "SELECT id, name, status FROM classes WHERE id = ?;";

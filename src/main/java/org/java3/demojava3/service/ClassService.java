@@ -4,6 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.java3.demojava3.dao.ClassDAO;
+import org.java3.demojava3.dao.StudentDAO;
 import org.java3.demojava3.model.Class;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 
 public class ClassService {
     private ClassDAO classDAO = new ClassDAO();
+    private StudentDAO studentDAO = new StudentDAO();
 
     public void showNewForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -29,6 +31,7 @@ public class ClassService {
     public void deleteClass(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
+        studentDAO.deleteStudentsByClassId(id);
         classDAO.deleteClass(id);
         response.sendRedirect("/classes");
     }
@@ -63,5 +66,13 @@ public class ClassService {
         Class classObj = classDAO.selectClass(classId);
         response.setContentType("application/json");
         response.getWriter().write("{\"className\": \"" + classObj.getName() + "\"}");
+    }
+
+    public void deleteClassAndStudents(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        int classId = Integer.parseInt(request.getParameter("id"));
+        studentDAO.deleteStudentsByClassId(classId);
+        classDAO.deleteClass(classId);
+        response.sendRedirect("/classes");
     }
 }

@@ -18,6 +18,7 @@ public class ClassServlet extends HttpServlet {
 
     private ClassService classService = new ClassService();
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getServletPath();
@@ -28,6 +29,9 @@ public class ClassServlet extends HttpServlet {
                     break;
                 case "/classes/update":
                     classService.updateClass(request, response);
+                    break;
+                case "/classes/delete":
+                    classService.deleteClassAndStudents(request, response);
                     break;
                 default:
                     classService.listClass(request, response);

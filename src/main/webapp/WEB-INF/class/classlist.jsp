@@ -62,15 +62,20 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
-    function confirmDelete(classId) {
-        if (confirm("Are you sure you want to delete this class?")) {
-            window.location.href = "/classes/delete?id=" + classId;
-        }
-    }
-
+    // function confirmDelete(classId) {
+    //     if (confirm("Are you sure you want to delete this class?")) {
+    //         window.location.href = "/classes/delete?id=" + classId;
+    //     }
+    // }
     $(document).ready(function () {
         $('#myTable').DataTable();
     });
+    function confirmDelete(classId) {
+        if (confirm("Are you sure you want to delete this class and all associated students?")) {
+            window.location.href = "/classes/delete?id=" + classId;
+        }
+    }
+</script>
 </script>
 </body>
 </html>
