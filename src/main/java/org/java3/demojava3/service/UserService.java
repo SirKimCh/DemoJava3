@@ -39,7 +39,7 @@ public class UserService {
     public void logoutUser(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         request.getSession().invalidate();
-        response.sendRedirect("WEB-INF/login.jsp");
+        response.sendRedirect("/");
     }
 
     public void getRegister(HttpServletRequest request, HttpServletResponse response)

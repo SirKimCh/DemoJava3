@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet({"/students", "/students/new", "/students/insert", "/students/delete",
-        "/students/edit", "/students/update","/"})
+        "/students/edit", "/students/update"})
 public class StudentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -21,14 +21,23 @@ public class StudentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null || (!user.getRole().equals("USER") && !user.getRole().equals("ADMIN"))) {
+            response.sendRedirect("/login");
+            return;
+        }
+
         String action = request.getServletPath();
         try {
             switch (action) {
                 case "/students/insert":
-                    studentService.insertStudent(request, response);
-                    break;
                 case "/students/update":
-                    studentService.updateStudent(request, response);
+                case "/students/delete":
+                    if (user.getRole().equals("ADMIN")) {
+                        studentService.insertStudent(request, response);
+                    } else {
+                        response.sendRedirect("/students");
+                    }
                     break;
                 default:
                     studentService.listStudent(request, response);
@@ -42,17 +51,22 @@ public class StudentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null || (!user.getRole().equals("USER") && !user.getRole().equals("ADMIN"))) {
+            response.sendRedirect("/login");
+            return;
+        }
         String action = request.getServletPath();
         try {
             switch (action) {
                 case "/students/new":
-                    studentService.showNewForm(request, response);
-                    break;
-                case "/students/delete":
-                    studentService.deleteStudent(request, response);
-                    break;
                 case "/students/edit":
-                    studentService.showEditForm(request, response);
+                case "/students/delete":
+                    if (user.getRole().equals("ADMIN")) {
+                        studentService.showNewForm(request, response);
+                    } else {
+                        response.sendRedirect("/students");
+                    }
                     break;
                 default:
                     studentService.listStudent(request, response);

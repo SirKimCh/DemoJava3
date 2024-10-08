@@ -22,17 +22,19 @@ public class ClassServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null || !user.getRole().equals("ADMIN")) {
+            response.sendRedirect("/login");
+            return;
+        }
+
         String action = request.getServletPath();
         try {
             switch (action) {
                 case "/classes/insert":
-                    classService.insertClass(request, response);
-                    break;
                 case "/classes/update":
-                    classService.updateClass(request, response);
-                    break;
                 case "/classes/delete":
-                    classService.deleteClassAndStudents(request, response);
+                    classService.insertClass(request, response);
                     break;
                 default:
                     classService.listClass(request, response);
@@ -46,20 +48,23 @@ public class ClassServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null || (!user.getRole().equals("USER") && !user.getRole().equals("ADMIN"))) {
+            response.sendRedirect("/login");
+            return;
+        }
+
         String action = request.getServletPath();
         try {
             switch (action) {
                 case "/classes/new":
-                    classService.showNewForm(request, response);
-                    break;
-                case "/classes/delete":
-                    classService.deleteClass(request, response);
-                    break;
                 case "/classes/edit":
-                    classService.showEditForm(request, response);
-                    break;
-                case "/classes/getClassName":
-                    classService.getClassName(request, response);
+                case "/classes/delete":
+                    if (user.getRole().equals("ADMIN")) {
+                        classService.showNewForm(request, response);
+                    } else {
+                        response.sendRedirect("/classes");
+                    }
                     break;
                 default:
                     classService.listClass(request, response);

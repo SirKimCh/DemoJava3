@@ -11,9 +11,8 @@ import org.java3.demojava3.service.UserService;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet({"/register", "/login"})
+@WebServlet({"/register", "/login", "/logout"})
 public class UserServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
     private UserService userService = new UserService();
 
     @Override
@@ -27,6 +26,9 @@ public class UserServlet extends HttpServlet {
                     break;
                 case "/login":
                     userService.loginUser(request, response);
+                    break;
+                case "/logout":
+                    userService.logoutUser(request, response);
                     break;
                 default:
                     response.sendRedirect("/login");
