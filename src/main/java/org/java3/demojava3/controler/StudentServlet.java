@@ -26,22 +26,22 @@ public class StudentServlet extends HttpServlet {
             response.sendRedirect("/login");
             return;
         }
-
         String action = request.getServletPath();
         try {
-            switch (action) {
-                case "/students/insert":
-                case "/students/update":
-                case "/students/delete":
-                    if (user.getRole().equals("ADMIN")) {
+            if (user.getRole().equals("ADMIN")) {
+                switch (action) {
+                    case "/students/insert":
                         studentService.insertStudent(request, response);
-                    } else {
-                        response.sendRedirect("/students");
-                    }
-                    break;
-                default:
-                    studentService.listStudent(request, response);
-                    break;
+                        break;
+                    case "/students/update":
+                        studentService.updateStudent(request, response);
+                        break;
+                    default:
+                        studentService.listStudent(request, response);
+                        break;
+                }
+            } else {
+                studentService.listStudent(request, response);
             }
         } catch (Exception e) {
             throw new ServletException(e);
@@ -58,19 +58,23 @@ public class StudentServlet extends HttpServlet {
         }
         String action = request.getServletPath();
         try {
-            switch (action) {
-                case "/students/new":
-                case "/students/edit":
-                case "/students/delete":
-                    if (user.getRole().equals("ADMIN")) {
+            if (user.getRole().equals("ADMIN")) {
+                switch (action) {
+                    case "/students/new":
                         studentService.showNewForm(request, response);
-                    } else {
-                        response.sendRedirect("/students");
-                    }
-                    break;
-                default:
-                    studentService.listStudent(request, response);
-                    break;
+                        break;
+                    case "/students/edit":
+                        studentService.showEditForm(request, response);
+                        break;
+                    case "/students/delete":
+                        studentService.deleteStudent(request, response);
+                        break;
+                    default:
+                        studentService.listStudent(request, response);
+                        break;
+                }
+            } else {
+                studentService.listStudent(request, response);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

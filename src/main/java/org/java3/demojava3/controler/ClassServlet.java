@@ -30,15 +30,23 @@ public class ClassServlet extends HttpServlet {
 
         String action = request.getServletPath();
         try {
-            switch (action) {
-                case "/classes/insert":
-                case "/classes/update":
-                case "/classes/delete":
-                    classService.insertClass(request, response);
-                    break;
-                default:
-                    classService.listClass(request, response);
-                    break;
+            if (user.getRole().equals("ADMIN")) {
+                switch (action) {
+                    case "/classes/insert":
+                        classService.insertClass(request, response);
+                        break;
+                    case "/classes/update":
+                        classService.updateClass(request, response);
+                        break;
+                    case "/classes/delete":
+                        classService.deleteClass(request, response);
+                        break;
+                    default:
+                        classService.listClass(request, response);
+                        break;
+                }
+            } else {
+                classService.listClass(request, response);
             }
         } catch (Exception e) {
             throw new ServletException(e);
@@ -53,22 +61,25 @@ public class ClassServlet extends HttpServlet {
             response.sendRedirect("/login");
             return;
         }
-
         String action = request.getServletPath();
         try {
-            switch (action) {
-                case "/classes/new":
-                case "/classes/edit":
-                case "/classes/delete":
-                    if (user.getRole().equals("ADMIN")) {
+            if (user.getRole().equals("ADMIN")) {
+                switch (action) {
+                    case "/classes/new":
                         classService.showNewForm(request, response);
-                    } else {
-                        response.sendRedirect("/classes");
-                    }
-                    break;
-                default:
-                    classService.listClass(request, response);
-                    break;
+                        break;
+                    case "/classes/edit":
+                        classService.showEditForm(request, response);
+                        break;
+                    case "/classes/getClassName":
+                        classService.getClassName(request, response);
+                        break;
+                    default:
+                        classService.listClass(request, response);
+                        break;
+                }
+            } else {
+                classService.listClass(request, response);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
