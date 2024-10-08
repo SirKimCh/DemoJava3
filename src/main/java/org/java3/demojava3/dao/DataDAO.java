@@ -37,4 +37,7 @@ public class DataDAO {
     public static final String SELECT_ALL_CLASSES = "SELECT * FROM classes;";
     public static final String DELETE_CLASSES_SQL = "DELETE FROM classes WHERE id = ?;";
     public static final String UPDATE_CLASSES_SQL = "UPDATE classes SET name = ?, status = ? WHERE id = ?;";
+    // SQL queries for CRUD operations of users
+    public static final String INSERT_USER_SQL = "INSERT INTO dbo.users (username, password, role) VALUES (?, ?, ?)";
+    public static final String LOGIN_USER_SQL = "SELECT * FROM users WHERE username = ? AND password = ?";
 }

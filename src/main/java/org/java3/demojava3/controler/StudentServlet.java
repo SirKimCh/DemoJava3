@@ -5,18 +5,20 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.java3.demojava3.model.User;
 import org.java3.demojava3.service.StudentService;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet({"/students", "/students/new", "/students/insert", "/students/delete",
-        "/students/edit", "/students/update"})
+        "/students/edit", "/students/update","/"})
 public class StudentServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    private StudentService studentService = new StudentService();
+    private final StudentService studentService = new StudentService();
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getServletPath();
