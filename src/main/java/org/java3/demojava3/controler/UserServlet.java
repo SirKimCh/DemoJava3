@@ -31,7 +31,7 @@ public class UserServlet extends HttpServlet {
                     userService.logoutUser(request, response);
                     break;
                 default:
-                    response.sendRedirect("/login");
+                    userService.getLogin(request, response);
                     break;
             }
         } catch (SQLException e) {
@@ -54,7 +54,7 @@ public class UserServlet extends HttpServlet {
                 userService.logoutUser(request, response);
                 break;
             default:
-                response.sendRedirect("/login");
+                userService.getLogin(request, response);
                 break;
         }
     }
